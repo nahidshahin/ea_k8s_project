@@ -60,10 +60,10 @@ kubectl apply -f k8s/hpa-product.yaml
 Port-forward to access order-service (this exposes order-service on localhost:8081)
 
 ```
-kubectl -n ea-demo port-forward svc/order-service 8081:8080
+kubectl -n ea-project port-forward svc/order-service 8081:8080
 ```
   
 
-now visit http://localhost:8081/api/orders
+now visit http://localhost:8081/api/order
 
   
