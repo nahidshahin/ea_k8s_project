@@ -1,4 +1,4 @@
-### Prerequisites
+## Prerequisites
 
 For local env install following tools:
 
@@ -16,11 +16,11 @@ For local env install following tools:
 
 ### Create kind cluster:
 
-
+```
 kind create cluster --name ea-cluster
-  
+```  
 
-Build images and load into kind:
+## Build images and load into kind:
 
 
 ### from product-service folder
@@ -53,7 +53,6 @@ kubectl apply -f k8s/product-deployment.yaml
 kubectl apply -f k8s/product-service.yaml
 kubectl apply -f k8s/order-deployment.yaml
 kubectl apply -f k8s/order-service.yaml
-kubectl apply -f k8s/hpa-product.yaml
 ```
   
 
@@ -67,3 +66,20 @@ kubectl -n ea-project port-forward svc/order-service 8081:8080
 now visit http://localhost:8081/api/order
 
   
+## Install Ingress controller for load balancing
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+kubectl apply -f k8s/order-service-ingress.yaml
+```
+
+### In /etc/hosts on your machine:
+```
+127.0.0.1 local.pc
+```
+
+### Port forward
+
+```
+kubectl port-forward --namespace ingress-nginx service/ingress-nginx-controller 80:80
+```
